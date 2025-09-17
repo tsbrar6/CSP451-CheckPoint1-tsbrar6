@@ -1,4 +1,5 @@
-# CSP451 CheckPoint1 - Auth Focus (user-auth branch)
+# CSP451 CheckPoint1 — Auth + API Integrated
+
 A tiny static website used to demonstrate Git & GitHub workflow for CSP451 (Week 1).
 
 ## Installation
