@@ -1,4 +1,5 @@
-# CSP451 CheckPoint1 – tsbrar6
+# CSP451 CheckPoint1 — API Focus (api branch)
+
 
 A tiny static website used to demonstrate Git & GitHub workflow for CSP451 (Week 1).
 
