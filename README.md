@@ -10,4 +10,3 @@ cd CSP451-CheckPoint1-tsbrar6
 ## User Authentication (demo)
 - Open `login.html` in your browser.
 - Validates required fields and password length.
-- **Demo only:** no backend/database connection.
