@@ -11,3 +11,8 @@ cd CSP451-CheckPoint1-tsbrar6
 ## User Authentication (demo)
 - Open `login.html` in your browser.
 - Validates required fields and password length.
+# CSP451 CheckPoint 3
+
+![CI](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/ci.yml/badge.svg)
+![Security Audit](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/security-audit.yml/badge.svg)
+![Deploy Pages](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/deploy-pages.yml/badge.svg)
