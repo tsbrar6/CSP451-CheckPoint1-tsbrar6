@@ -1,0 +1,9 @@
+name: Node Setup
+description: 'Reusable Node.js setup for CI'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+    - run: npm install

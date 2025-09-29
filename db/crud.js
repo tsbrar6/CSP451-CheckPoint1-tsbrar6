@@ -11,7 +11,7 @@ function createUser(name, email) {
     function (err) {
       if (err) return console.error('❌ Insert error:', err.message);
       console.log(`✅ User created with ID: ${this.lastID}`);
-    }
+    },
   );
 }
 
@@ -39,7 +39,7 @@ function updateUser(id, name, email) {
     function (err) {
       if (err) return console.error('❌ Update error:', err.message);
       console.log(`✅ Updated ${this.changes} user(s)`);
-    }
+    },
   );
 }
 

@@ -3,13 +3,13 @@
 // Fake data and functions
 
 let members = [
-  { id: 1, fullName: "Sara", email: "sara@test.com", password: "1111" },
-  { id: 2, fullName: "Tom", email: "tom@test.com", password: "2222" }
+  { id: 1, fullName: 'Sara', email: 'sara@test.com', password: '1111' },
+  { id: 2, fullName: 'Tom', email: 'tom@test.com', password: '2222' },
 ];
 
 let items = [
-  { id: 1, title: "Backpack", cost: 45 },
-  { id: 2, title: "Shoes", cost: 80 }
+  { id: 1, title: 'Backpack', cost: 45 },
+  { id: 2, title: 'Shoes', cost: 80 },
 ];
 
 // show all members
@@ -37,5 +37,5 @@ function addItem(item) {
 }
 
 // quick test output
-console.log("Members:", listMembers());
-console.log("Items:", listItems());
+console.log('Members:', listMembers());
+console.log('Items:', listItems());

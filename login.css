@@ -1,8 +1,26 @@
 /* Basic class-friendly styling */
-body { font-family: Arial, sans-serif; margin: 24px; }
-h1 { margin-bottom: 12px; }
-label { font-weight: bold; }
-input { padding: 8px; width: 240px; }
-button { padding: 8px 12px; margin-top: 8px; }
-#status { margin-top: 12px; color: green; }
-.error { color: red; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 24px;
+}
+h1 {
+  margin-bottom: 12px;
+}
+label {
+  font-weight: bold;
+}
+input {
+  padding: 8px;
+  width: 240px;
+}
+button {
+  padding: 8px 12px;
+  margin-top: 8px;
+}
+#status {
+  margin-top: 12px;
+  color: green;
+}
+.error {
+  color: red;
+}
