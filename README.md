@@ -42,3 +42,4 @@ npm run prettier:check
 npm run lint
 npm test
 npm run build
+![Deploy to GitHub Pages](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/deploy-pages.yml/badge.svg)
