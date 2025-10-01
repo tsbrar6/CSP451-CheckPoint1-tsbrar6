@@ -1,5 +1,5 @@
 # CSP451 CheckPoint1 — API endpoint focus (api branch)
-
+> Verification commit for branch protection (Checkpoint 3).
 A tiny static website used to demonstrate Git & GitHub workflow for CSP451 (Week 1).
 
 ## Installation
