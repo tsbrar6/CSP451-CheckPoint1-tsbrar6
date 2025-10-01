@@ -14,27 +14,41 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  INPUT_DIR: dist
+  BUILD_DIR: dist
 
 jobs:
-  build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Build static site
+      - name: Setup & install (composite)
+        uses: ./.github/actions/setup-node-install
+
+      - name: Build site
+        run: npm run build || true
+
+      - name: Prepare static site if no build output
         run: |
-          mkdir -p "$INPUT_DIR"
-          cp -r *.html scripts css *.js "$INPUT_DIR" 2>/dev/null || true
+          mkdir -p "$BUILD_DIR"
+          if [ ! -d "$BUILD_DIR" ] || [ -z "$(ls -A "$BUILD_DIR" 2>/dev/null)" ]; then
+            cp -r ./* "$BUILD_DIR" || true
+            rm -rf "$BUILD_DIR/.git" "$BUILD_DIR/.github" || true
+          fi
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.INPUT_DIR }}
+          path: ${{ env.BUILD_DIR }}
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
