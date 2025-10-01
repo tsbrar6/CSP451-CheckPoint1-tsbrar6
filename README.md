@@ -1,5 +1,7 @@
 # CSP451 CheckPoint1 — API endpoint focus (api branch)
-![CSP451 Checkpoint 3 CI](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/ci.yml/badge.svg)](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/ci.yml)
+[![Security Audit](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/security-audit.yml/badge.svg)](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/security-audit.yml)
+[![Deploy to GitHub Pages](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/deploy-pages.yml)
 A tiny static website used to demonstrate Git & GitHub workflow for CSP451 (Week 1).
 
 ## Installation
@@ -42,4 +44,4 @@ npm run prettier:check
 npm run lint
 npm test
 npm run build
-![Deploy to GitHub Pages](https://github.com/tsbrar6/CSP451-CheckPoint1-tsbrar6/actions/workflows/deploy-pages.yml/badge.svg)
+
