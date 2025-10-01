@@ -1,32 +1,60 @@
-name: CI
+name: CI pipeline
 
 on:
   push:
-    branches: [ main, checkpoint-3 ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  build-test:
+  lint-test-build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci || npm i
 
-      - name: Run tests
-        run: npm test --if-present -- --watch=false || echo "No tests"
+      - name: ESLint
+        run: npm run lint --if-present
 
-      - name: Run lint
-        run: npm run lint --if-present || echo "No lint script"
+      - name: Prettier check
+        run: npm run prettier --if-present -- -c .
+
+      - name: Run tests with coverage
+        run: npm test --if-present -- --coverage --ci
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: |
+            coverage/**
+            junit.xml
+          if-no-files-found: warn
+
+      # Public repos don’t need token; private would use CODECOV_TOKEN secret
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
 
       - name: Build
-        run: npm run build --if-present || echo "No build script"
+        run: npm run build --if-present
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: |
+            dist/**
+            build/**
+          if-no-files-found: warn
