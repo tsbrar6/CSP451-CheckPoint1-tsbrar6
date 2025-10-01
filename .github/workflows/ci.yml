@@ -1,23 +1,42 @@
-  test:
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-test-build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - run: npm ci
-      - run: npm test -- --coverage
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # Upload coverage as an artifact (always works, no secrets needed)
-      - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          name: coverage
-          path: coverage
+          node-version: 20
+          cache: 'npm'
 
-      # (Optional) Send to Codecov — requires a CODECOV_TOKEN repo secret
-      # - name: Upload to Codecov
-      #   uses: codecov/codecov-action@v4
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     files: ./coverage/lcov.info
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --if-present
+
+      - name: Run Prettier check
+        run: npm run prettier --if-present --check .
+
+      - name: Run unit tests
+        run: npm test -- --coverage --ci
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+        if: success()
+
+      - name: Build application
+        run: npm run build
