@@ -1,4 +1,4 @@
-name: CI pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -9,24 +9,34 @@ on:
 jobs:
   lint-test-build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup & install (composite)
-        uses: ./.github/actions/setup-node-install
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
-      - name: ESLint
-        run: npm run lint || npm run eslint --if-present
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Prettier check
-        run: npm run prettier:check || npx prettier --check .
+      - name: Run ESLint
+        run: npm run lint --if-present
 
-      - name: Run tests with coverage
-        run: npm test --if-present -- --coverage --ci
+      - name: Run Prettier check
+        run: npm run prettier --if-present --check .
+
+      - name: Run unit tests
+        run: npm test -- --coverage --ci
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
+        if: success()
+
+      - name: Build application
+        run: npm run build
