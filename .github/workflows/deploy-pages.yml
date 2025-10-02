@@ -1,19 +1,57 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # If your site is just static files (html/css/js at repo root), copy them into dist/.
+      - name: Prepare dist for static site
+        run: |
+          mkdir -p dist
+          shopt -s nullglob
+          cp -r *.html *.css *.js dist/ || true
+          if [ -d "assets" ]; then cp -r assets dist/; fi
+
+      # If you actually build into dist/ with npm, uncomment this block and
+      # remove the "Prepare dist" step above.
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      # - name: Install & Build
+      #   run: |
+      #     npm ci
+      #     npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: '16'
-      - run: npm install
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
